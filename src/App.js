@@ -2,27 +2,41 @@ import React from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button, Jumbotron, Container, Card } from 'react-bootstrap/'
+import { Form, Button, Card ,Alert } from 'react-bootstrap/'
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       location: '',
-      showmap: false
+      showmap: false,
+      showerror:false,
     }
   }
   getLocation = async (event) => {
     event.preventDefault();
+    try{
+      let userInput = event.target.name.value;
+      let locURL = `https://us1.locationiq.com/v1/search.php?key=pk.465ca57abf236bbdd06ac05eab31285b&q=${userInput}&format=json`;
+      let locationRes = await axios.get(locURL);
+      this.setState({
+        location: locationRes.data[0],
+        showmap: true,
+      });
+    }catch{
+      this.setState({
+        showerror:true,
+      })
 
-    let userInput = event.target.name.value;
-    let locURL = `https://us1.locationiq.com/v1/search.php?key=pk.465ca57abf236bbdd06ac05eab31285b&q=${userInput}&format=json`;
-    let locationRes = await axios.get(locURL);
+    }
+
+    
+
+  }
+  setShow=() => {
     this.setState({
-      location: locationRes.data[0],
-      showmap: true,
-    });
-
+      showerror:false,
+    })
   }
   render() {
 
@@ -39,7 +53,7 @@ class App extends React.Component {
         </Form>
         {
           this.state.showmap &&
-          <Card style={{ width: '18rem' }} className='col-9 m-auto mt-5'>
+          <Card style={{ width: '25rem' }} className='m-auto'>
             <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=pk.465ca57abf236bbdd06ac05eab31285b&center=${this.state.location.lat},${this.state.location.lon}&size=400x400`} />
             <Card.Body>
               <Card.Title>display_name : {this.state.location.display_name}</Card.Title>
@@ -49,6 +63,15 @@ class App extends React.Component {
               </Card.Text>
             </Card.Body>
           </Card>
+        }
+        {
+          this.state.showerror && 
+          <Alert variant="danger" onClose={() => this.setShow(false)} dismissible className='col-6 m-auto'>
+        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+        <p>
+        Unable to geocode
+        </p>
+      </Alert>
         }
 
 
