@@ -2,14 +2,14 @@ import React from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button, Jumbotron, Container } from 'react-bootstrap/'
+import { Form, Button, Jumbotron, Container, Card } from 'react-bootstrap/'
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       location: '',
-      map:''
+      showmap: false
     }
   }
   getLocation = async (event) => {
@@ -20,12 +20,9 @@ class App extends React.Component {
     let locationRes = await axios.get(locURL);
     this.setState({
       location: locationRes.data[0],
+      showmap: true,
     });
-    let mapUrl=`https://maps.locationiq.com/v3/staticmap?key=pk.465ca57abf236bbdd06ac05eab31285b&center=${this.state.location.lat},${this.state.location.lon}&zoom=<zoom>&size=400x400&format=<format>&maptype=<MapType>&markers=icon:<icon>|<latitude>,<longitude>&markers=icon:<icon>|<latitude>,<longitude>`;
-    let mapRes= await axios.get(mapUrl);
-    this.setState({
-      map: mapRes.data[0],
-    });
+
   }
   render() {
 
@@ -40,21 +37,21 @@ class App extends React.Component {
             Explore!
           </Button>
         </Form>
-        <Jumbotron fluid className='col-6 m-auto mt-5'>
-          <Container>
-            <h1>display_name : {this.state.location.display_name}</h1>
-            <p>
-              lat :
-         {
-                this.state.location.lat
-              }
-            </p>
-            <p>lon : {this.state.location.lon}</p>
-          </Container>
-        </Jumbotron>
-              {
-                <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.465ca57abf236bbdd06ac05eab31285b&center=${this.state.location.lat},${this.state.location.lon}&size=400x400`} alt='r'></img>
-              }
+        {
+          this.state.showmap &&
+          <Card style={{ width: '18rem' }} className='col-9 m-auto mt-5'>
+            <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=pk.465ca57abf236bbdd06ac05eab31285b&center=${this.state.location.lat},${this.state.location.lon}&size=400x400`} />
+            <Card.Body>
+              <Card.Title>display_name : {this.state.location.display_name}</Card.Title>
+              <Card.Text>
+                <p>lat :{this.state.location.lat}</p>
+                <p>lon : {this.state.location.lon}</p>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        }
+
+
       </div>
     )
   }
