@@ -53,7 +53,7 @@ class App extends React.Component {
           </Container>
         </Jumbotron>
               {
-                <img src='${this.state.map}' alt='r'></img>
+                <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.465ca57abf236bbdd06ac05eab31285b&center=${this.state.location.lat},${this.state.location.lon}&size=400x400`} alt='r'></img>
               }
       </div>
     )
