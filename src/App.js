@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button, Card ,Alert } from 'react-bootstrap/'
+import { Form, Button, Card ,Alert } from 'react-bootstrap/';
+import Weather from './componant/Weather';
 class App extends React.Component {
 
   constructor(props) {
@@ -11,7 +12,17 @@ class App extends React.Component {
       location: '',
       showmap: false,
       showerror:false,
+      weatherData:[],
     }
+  }
+  //localhost:3001/weather?searchQuery=
+  getAPIData = async (userinp) =>{
+    const url=`http://localhost:3002/weather?searchQuery=${userinp}`;
+    const APIData=await axios.get(url);
+    console.log(APIData.data);
+    this.setState({
+      weatherData:APIData.data,
+    })
   }
   getLocation = async (event) => {
     event.preventDefault();
@@ -20,15 +31,17 @@ class App extends React.Component {
       let locURL = `https://us1.locationiq.com/v1/search.php?key=pk.465ca57abf236bbdd06ac05eab31285b&q=${userInput}&format=json`;
       let locationRes = await axios.get(locURL);
       this.setState({
-        location: locationRes.data[0],
+        location: locationRes.date,
         showmap: true,
       });
+      this.getAPIData(userInput);
     }catch{
       this.setState({
         showerror:true,
       })
 
     }
+    
 
     
 
@@ -37,6 +50,7 @@ class App extends React.Component {
     this.setState({
       showerror:false,
     })
+
   }
   render() {
 
@@ -60,6 +74,7 @@ class App extends React.Component {
               <Card.Text>
                 <p>lat :{this.state.location.lat}</p>
                 <p>lon : {this.state.location.lon}</p>
+               
               </Card.Text>
             </Card.Body>
           </Card>
@@ -73,6 +88,18 @@ class App extends React.Component {
         </p>
       </Alert>
         }
+          {
+         
+             this.state.weatherData.map((item,ind) =>{
+              <Weather 
+              date={item}
+              description={item}
+              key={ind.toString()}
+              />
+            })
+         
+                  
+          } 
 
 
       </div>
