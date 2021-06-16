@@ -24,15 +24,36 @@
 
 # Time Estimates
 
-Name of feature: # 1
+Name of feature: # 1<br>
 
-Estimate of time needed to complete: 30 minute.
+Estimate of time needed to complete: 30 minute.<br>
 
-Start time: 4:37
+Start time: 4:37<br>
 
-Finish time: 8:24
+Finish time: 8:24<br>
 
-Actual time needed to complete: 4 hour
+Actual time needed to complete: 4 hour<br>
+
+Name of feature: # 2<br>
+
+Estimate of time needed to complete: 30 minute.<br>
+
+Start time: 4:37<br>
+
+Finish time: 8:24<br>
+
+Actual time needed to complete: 4 hour<br>
+
+Name of feature: # 3<br>
+
+Estimate of time needed to complete: 30 minute.<br>
+
+Start time: 4:37<br>
+
+Finish time: 8:24<br>
+
+Actual time needed to complete: 4 hour<br>
+
 
 # Getting Started with Create React App
 
