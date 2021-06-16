@@ -23,7 +23,7 @@ class App extends React.Component {
     event.preventDefault();
     let userInput = event.target.name.value;
     let locURL = `https://us1.locationiq.com/v1/search.php?key=pk.465ca57abf236bbdd06ac05eab31285b&q=${userInput}&format=json`;
-    //const url=`http://localhost:3002/weather?searchQuery=${userInput}`;
+    const url=`http://localhost:3002/weather?searchQuery=${userInput}`;
     const movieURL=`http://localhost:3002/movie?query=${userInput}`;
     try{
      
@@ -31,7 +31,7 @@ class App extends React.Component {
       let locationRes = await axios.get(locURL);
 
      
-      //const APIData=await axios.get(url);
+      const APIData=await axios.get(url);
 
       
       const movieAPI =await axios.get(movieURL);
@@ -43,7 +43,7 @@ class App extends React.Component {
         movieData:movieAPI.data[0],
         showmap: true,
         showMovie:true,
-        //weatherData:APIData.data,
+        weatherData:APIData.data,
        
       });
     }catch{
