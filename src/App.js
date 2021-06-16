@@ -4,7 +4,7 @@ import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Card, Alert } from 'react-bootstrap/';
 import Weather from './componant/Weather';
-import Movie from './componant/Movie';
+import Movies from './componant/Movies';
 class App extends React.Component {
 
   constructor(props) {
@@ -40,7 +40,7 @@ class App extends React.Component {
 
       this.setState({
         location: locationRes.data[0],
-        movieData: movieAPI.data[0],
+        movieData: movieAPI.data,
         showmap: true,
         showMovie: true,
         weatherData: APIData.data,
@@ -88,11 +88,13 @@ class App extends React.Component {
                 lat :{this.state.location.lat}<br></br>
                lon : {this.state.location.lon}
                 {
-                  this.state.weatherData.map((item, inx) => {
+                  /* this.state.weatherData.map((item, inx) => {
                     return (
                       <Weather date={item.date} description={item.description} key={inx.toString()} />
                     )
-                  })
+                  }) */
+
+                  <Weather weatherArr={this.state.weatherData} />
                 }
 
               </Card.Text>
@@ -101,8 +103,9 @@ class App extends React.Component {
         }
         {
           this.state.showmap &&
-
-          <Movie imgURL={this.state.movieData.imgURL}
+          <Movies movieArr={this.state.movieData}/>
+        }
+           {/* <Movie imgURL={this.state.movieData.imgURL}
             title={this.state.movieData.title}
             overview={this.state.movieData.overview}
             vote_average={this.state.movieData.vote_average}
@@ -110,10 +113,11 @@ class App extends React.Component {
             popularity={this.state.movieData.popularity}
             release_date={this.state.movieData.release_date}
 
-          />
+          /> */}
+ 
 
 
-        }
+        
 
         {
           this.state.showerror &&
