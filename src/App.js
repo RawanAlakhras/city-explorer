@@ -16,25 +16,23 @@ class App extends React.Component {
     }
   }
   //localhost:3001/weather?searchQuery=
-  getAPIData = async (userinp) =>{
-    const url=`http://localhost:3002/weather?searchQuery=${userinp}`;
-    const APIData=await axios.get(url);
-    console.log(APIData.data);
-    this.setState({
-      weatherData:APIData.data,
-    })
-  }
   getLocation = async (event) => {
     event.preventDefault();
     try{
       let userInput = event.target.name.value;
       let locURL = `https://us1.locationiq.com/v1/search.php?key=pk.465ca57abf236bbdd06ac05eab31285b&q=${userInput}&format=json`;
       let locationRes = await axios.get(locURL);
+      const url=`http://localhost:3002/weather?searchQuery=${userInput}`;
+      const APIData=await axios.get(url);
+      console.log(APIData.data);
       this.setState({
-        location: locationRes.date,
+        
+      })
+      this.setState({
+        location: locationRes.data[0],
         showmap: true,
+        weatherData:APIData.data,
       });
-      this.getAPIData(userInput);
     }catch{
       this.setState({
         showerror:true,
@@ -74,6 +72,15 @@ class App extends React.Component {
               <Card.Text>
                 <p>lat :{this.state.location.lat}</p>
                 <p>lon : {this.state.location.lon}</p>
+                <p> {this.state.weatherData[2].date}</p>
+                <p> {this.state.weatherData[2].description}</p>
+                {
+                  this.state.weatherData.map((item,inx)=>{
+                    return (
+                     <Weather date={item.date} description={item.description} key={inx.toString()}/> 
+                    )
+                  })
+                }
                
               </Card.Text>
             </Card.Body>
@@ -88,18 +95,6 @@ class App extends React.Component {
         </p>
       </Alert>
         }
-          {
-         
-             this.state.weatherData.map((item,ind) =>{
-              <Weather 
-              date={item}
-              description={item}
-              key={ind.toString()}
-              />
-            })
-         
-                  
-          } 
 
 
       </div>

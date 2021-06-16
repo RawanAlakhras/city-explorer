@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class Weather extends React.Component{
 render(){
     return (
-        <div>
-           <p>{this.props.date} : {this.props.description}</p>
-        </div>
+        <ul>
+           <li>{this.props.date} {this.props.description}</li>
+        </ul>
     )
 
 }
