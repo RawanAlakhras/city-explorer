@@ -10,11 +10,13 @@ render(){
             <Card.Body>
               <Card.Title>title : {this.props.title}</Card.Title>
               <Card.Text>
-                <p>overview :{this.props.overview}</p>
-                <p>vote_average: {this.props.vote_average}</p>
-                <p>vote_count: {this.props.vote_count}</p>
-                <p>popularity: {this.props.popularity}</p>
-                <p>release_date: {this.props.release_date}</p>
+                
+                overview :{this.props.overview}<br></br>
+                vote_average: {this.props.vote_average}<br></br>
+                vote_count: {this.props.vote_count}<br></br>
+                popularity: {this.props.popularity}<br></br>
+                release_date: {this.props.release_date}<br></br>
+                
               </Card.Text>
             </Card.Body>
           </Card>
