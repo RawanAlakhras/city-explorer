@@ -17,7 +17,8 @@ render(){
             release_date={item.release_date}
              />
            )
-       })}
+       })
+       }
         </>
     )
 
