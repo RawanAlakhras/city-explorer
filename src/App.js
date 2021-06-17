@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Card, Alert } from 'react-bootstrap/';
 import Weather from './componant/Weather';
 import Movies from './componant/Movies';
+//require("dotenv").config();
 class App extends React.Component {
 
   constructor(props) {
@@ -22,9 +23,13 @@ class App extends React.Component {
   getLocation = async (event) => {
     event.preventDefault();
     let userInput = event.target.name.value;
+    const heroku=process.env.REACT_APP_SERVER;
     let locURL = `https://us1.locationiq.com/v1/search.php?key=pk.465ca57abf236bbdd06ac05eab31285b&q=${userInput}&format=json`;
-    const url = `http://localhost:3002/weather?searchQuery=${userInput}`;
-    const movieURL = `http://localhost:3002/movie?query=${userInput}`;
+    const url = `${heroku}/weather?searchQuery=${userInput}`;
+    const movieURL = `${heroku}/movie?query=${userInput}`;
+    console.log(userInput);
+    console.log(heroku);
+    
     try {
 
 
